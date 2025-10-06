@@ -1,0 +1,13 @@
+SELECT 
+    Date,
+    Sales,
+    AVG(Sales) OVER (ORDER BY Date ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) AS moving_avg
+FROM DailySales;
+
+
+Date       | Sales | moving_avg
+-----------|-------|------------
+2024-01-01 | 100   | 100        (only 1 value)
+2024-01-02 | 150   | 125        (100+150)/2
+2024-01-03 | 200   | 150        (100+150+200)/3
+2024-01-04 | 180   | 176.67     (150+200+180)/3

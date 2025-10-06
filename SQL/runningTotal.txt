@@ -1,0 +1,11 @@
+SELECT 
+    Date,
+    Sales,
+    SUM(Sales) OVER (ORDER BY Date) AS running_total
+FROM DailySales;
+
+Date       | Sales | running_total
+-----------|-------|---------------
+2024-01-01 | 100   | 100
+2024-01-02 | 150   | 250  (100+150)
+2024-01-03 | 200   | 450  (100+150+200)

@@ -1,0 +1,12 @@
+SELECT DISTINCT Salary AS SecondHighestSalary
+FROM (
+    SELECT Salary, 
+           DENSE_RANK() OVER (ORDER BY Salary DESC) AS rnk
+    FROM Employee
+) AS ranked
+WHERE rnk = 2;
+
+
+select salary from tab
+order by salary DESC
+limit 1 offset n-1;

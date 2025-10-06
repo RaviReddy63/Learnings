@@ -1,0 +1,17 @@
+SELECT 
+    Name, 
+    Salary,
+    NTILE(4) OVER (ORDER BY Salary DESC) AS quartile
+FROM Employee;
+
+Example with 8 rows:
+Name   | Salary | quartile
+-------|--------|----------
+Alice  | 100    | 1  ← Top quartile
+Bob    | 95     | 1
+Carol  | 90     | 2
+Dan    | 85     | 2
+Eve    | 80     | 3
+Frank  | 75     | 3
+Grace  | 70     | 4
+Henry  | 65     | 4  ← Bottom quartile
