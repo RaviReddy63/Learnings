@@ -1,0 +1,50 @@
+SELECT TO_DATE('26-NOV-2024', 'DD-MON-YYYY') FROM DUAL
+SELECT TO_DATE('2024/11/26', 'YYYY/MM/DD') FROM DUAL
+SELECT TO_DATE('11-26-2024', 'MM-DD-YYYY') FROM DUAL
+
+
+------------------------------------------------------------------------------------
+SELECT 
+    employee_name,
+    department,
+    salary,
+    DENSE_RANK() OVER (ORDER BY salary DESC) as dense_rank,
+    RANK() OVER (ORDER BY salary DESC) as rank,
+    ROW_NUMBER() OVER (ORDER BY salary DESC) as row_num
+FROM employees;
+
+
+DENSE_RANK: No gaps in ranking (1, 1, 2, 3, 3, 4)
+RANK: Has gaps after ties (1, 1, 3, 4, 4, 6)
+ROW_NUMBER: Always unique (1, 2, 3, 4, 5, 6)
+------------------------------------------------------------------------------------
+
+SELECT 
+    employee_name,
+    department,
+    salary,
+    DENSE_RANK() OVER (PARTITION BY department ORDER BY salary DESC) as dept_rank
+FROM employees;
+
+
+
+------------------------------------------------------------------------------------
+
+
+WITH ranked_products AS (
+    SELECT 
+        product_name,
+        category,
+        revenue,
+        DENSE_RANK() OVER (PARTITION BY category ORDER BY revenue DESC) as rank
+    FROM products
+)
+SELECT * 
+FROM ranked_products
+WHERE rank <= 3;
+
+
+
+------------------------------------------------------------------------------------
+
+
