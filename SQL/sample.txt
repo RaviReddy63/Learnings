@@ -46,5 +46,23 @@ WHERE rank <= 3;
 
 
 ------------------------------------------------------------------------------------
+-- PIVOT query (SQL Server)
+SELECT *
+FROM (
+    SELECT Region, Month, Revenue
+    FROM MonthlySales
+) AS SourceTable
+PIVOT (
+    SUM(Revenue)
+    FOR Month IN ([Jan], [Feb], [Mar])
+) AS PivotTable;
+```
 
+**Result:**
+```
+Region | Jan   | Feb   | Mar
+-------|-------|-------|-------
+East   | 17000 | 16500 | NULL
+North  | 15000 | 18000 | 20000
+South  | 12000 | 13000 | 14500
 
